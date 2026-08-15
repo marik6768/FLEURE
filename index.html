@@ -1,1 +1,118 @@
-<!doctype html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="FLEURÉ — авторские букеты для особенных моментов."><title>FLEURÉ — цветы, которым не нужны поводы</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><header class="header"><a class="logo" href="#top">F L E U R É</a><nav class="nav"><a href="#collection">Коллекция</a><a href="#about">О FLEURÉ</a><a href="#delivery">Доставка</a></nav><button class="cart-button" id="cartOpen">Корзина <span id="cartCount">0</span><span class="bag">♧</span></button><button class="menu-button" id="menuButton">☰</button></header><main id="top"><section class="hero"><div class="hero-copy reveal"><p class="eyebrow">FLEURÉ</p><h1>Цветы,<br>которым<br>не нужны поводы</h1><p class="hero-text">Авторские букеты для особенных моментов<br>и просто чтобы сделать день красивее.</p><a class="primary-button" href="#collection">Смотреть коллекцию <span>→</span></a></div><div class="hero-photo"><img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1800&q=90" alt="Композиция из свежих цветов"></div><div class="hero-number">01 <span></span> 03</div></section><section class="collection section" id="collection"><div class="section-head reveal"><div><p class="eyebrow dark">КОЛЛЕКЦИЯ</p><h2>Наши букеты</h2></div><button class="text-button" id="allProducts">Смотреть все <span>→</span></button></div><div class="products" id="products"></div></section><section class="about section" id="about"><div class="about-image reveal"><img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1200&q=90" alt="Цветочная композиция" loading="lazy"></div><div class="about-copy reveal"><p class="eyebrow dark">О FLEURÉ</p><h2>Красота<br>в простом</h2><p>Мы собираем композиции из цветов, которые хочется рассматривать ещё немного. Без лишнего декора, громких слов и случайных деталей.</p><p>FLEURÉ — небольшая цветочная студия с вниманием к форме, цвету и настроению каждого букета.</p></div></section><section class="services" id="delivery"><div class="service"><span>✿</span><div><h3>Свежие цветы</h3><p>Поставки от проверенных фермеров каждый день.</p></div></div><div class="service"><span>◌</span><div><h3>Авторские букеты</h3><p>Собираем композиции, которые говорят сами за себя.</p></div></div><div class="service"><span>⌁</span><div><h3>Бережная доставка</h3><p>Привезём букет по городу за 1–3 часа.</p></div></div><div class="service"><span>□</span><div><h3>Красиво упакуем</h3><p>Каждый букет готов стать подарком.</p></div></div></section></main><footer class="footer"><span>F L E U R É</span><span>Цветы, которым не нужны поводы</span><span>© 2026</span></footer><div class="overlay" id="overlay"></div><aside class="cart" id="cart"><div class="cart-head"><h2>Корзина</h2><button id="cartClose">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-bottom"><div><span>Итого</span><strong id="cartTotal">€0</strong></div><button class="primary-button checkout" id="checkout">Оформить заказ</button><small>Демонстрационная версия для портфолио.</small></div></aside><div class="toast" id="toast"></div><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FLEURÉ — авторские букеты для особенных моментов.">
+  <meta name="theme-color" content="#3a171d">
+  <title>FLEURÉ — цветы, которым не нужны поводы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header" id="header">
+    <a class="logo" href="#top">F L E U R É</a>
+    <nav class="nav" id="nav" aria-label="Основная навигация">
+      <a href="#collection">Коллекция</a>
+      <a href="#about">О нас</a>
+      <a href="#delivery">Доставка</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cart-button" id="cartOpen">Корзина <span id="cartCount">0</span><i class="bag" aria-hidden="true"></i></button>
+      <button class="menu-button" id="menuButton" aria-label="Меню"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-copy reveal">
+        <p class="eyebrow">FLEURÉ · ЦВЕТОЧНАЯ СТУДИЯ</p>
+        <h1>Цветы,<br><em>которым</em><br>не нужны поводы</h1>
+        <p class="hero-text">Авторские букеты для особенных моментов<br>и просто чтобы сделать день красивее.</p>
+        <a class="primary-button" href="#collection">Смотреть коллекцию <span>↗</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-frame"></div>
+        <img src="assets/hero.jpg" alt="" fetchpriority="high">
+      </div>
+      <div class="hero-meta"><span>01</span><i></i><span>03</span></div>
+      <div class="scroll-note">Листайте вниз <span>↓</span></div>
+    </section>
+
+    <section class="collection section" id="collection">
+      <div class="section-head reveal">
+        <div><p class="eyebrow dark">01 · КОЛЛЕКЦИЯ</p><h2>Цветы для настроения</h2></div>
+        <p class="section-note">8 композиций · от €59</p>
+      </div>
+      <div class="products" id="products"></div>
+    </section>
+
+    <section class="art-story" id="about">
+      <div class="story-image reveal"><img src="assets/about.jpg" alt="Нежная цветочная композиция" loading="lazy"></div>
+      <div class="story-copy reveal">
+        <p class="eyebrow">02 · О FLEURÉ</p>
+        <h2>Искусство<br><em>в каждом</em><br>букете</h2>
+        <p>Мы собираем композиции, которые хочется рассматривать чуть дольше. Цвет, форма, линия и один неожиданный акцент.</p>
+        <button class="line-button" data-open="aboutModal">Узнать больше <span>↗</span></button>
+      </div>
+      <div class="botanical botanical-a">✳</div>
+      <div class="botanical botanical-b">❋</div>
+    </section>
+
+    <section class="values section" id="delivery">
+      <div class="section-head reveal"><div><p class="eyebrow dark">03 · СЕРВИС</p><h2>Всё просто</h2></div><p class="section-note">Без лишних шагов</p></div>
+      <div class="value-grid">
+        <article class="value-card reveal"><span class="value-num">01</span><div class="value-icon flower-icon">✾</div><h3>Свежие цветы</h3><p>Поставки от проверенных фермеров каждый день.</p></article>
+        <article class="value-card reveal"><span class="value-num">02</span><div class="value-icon">◌</div><h3>Авторские букеты</h3><p>Собираем композиции с характером, а не по шаблону.</p></article>
+        <article class="value-card reveal"><span class="value-num">03</span><div class="value-icon">⌁</div><h3>Бережная доставка</h3><p>По городу за 1–3 часа. Выберите удобный способ получения.</p></article>
+        <article class="value-card reveal"><span class="value-num">04</span><div class="value-icon">□</div><h3>Красиво упакуем</h3><p>Букет уже готов стать подарком. Останется только вручить.</p></article>
+      </div>
+    </section>
+
+    <section class="promo reveal">
+      <img src="assets/promo.jpg" alt="Цветы в мягком вечернем свете" loading="lazy">
+      <div class="promo-overlay"></div>
+      <div class="promo-copy"><p class="eyebrow">СЕЙЧАС</p><h2>Доставка бесплатно<br>при заказе от €80</h2><a href="#delivery" class="ghost-button">Условия доставки <span>↗</span></a></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div><div class="footer-logo">F L E U R É</div><p>Цветы, которым не нужны поводы.</p></div>
+    <div><small>МЕНЮ</small><a href="#collection">Коллекция</a><a href="#about">О нас</a><a href="#delivery">Доставка</a></div>
+    <div><small>ПОМОЩЬ</small><a href="#delivery">Уход за цветами</a><a href="#delivery">Возврат и обмен</a></div>
+    <div><small>КОНТАКТЫ</small><a href="mailto:hello@fleure.example">hello@fleure.example</a><span>+33 6 12 34 56 78</span></div>
+  </footer>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart" id="cart" aria-label="Корзина">
+    <div class="modal-head"><div><p class="eyebrow">ВАШИ ЦВЕТЫ</p><h2>Корзина</h2></div><button class="close" id="cartClose">×</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-bottom"><div class="total-row"><span>Итого</span><strong id="cartTotal">€0</strong></div><button class="primary-button full" id="checkoutOpen">Перейти к оформлению <span>↗</span></button><small>Демонстрационная версия для портфолио.</small></div>
+  </aside>
+
+  <section class="checkout modal-page" id="checkoutPage" aria-hidden="true">
+    <div class="checkout-shell">
+      <div class="modal-head"><div><p class="eyebrow dark">FLEURÉ · ЗАКАЗ</p><h2>Оформление</h2></div><button class="close dark-close" id="checkoutClose">×</button></div>
+      <div class="checkout-layout">
+        <form id="checkoutForm" class="checkout-form">
+          <div class="form-block"><p class="form-label">01 · КОНТАКТЫ</p><div class="form-grid"><label>Имя<input name="name" autocomplete="name" required placeholder="Ваше имя"></label><label>Телефон<input name="phone" type="tel" autocomplete="tel" required placeholder="+33 ..."></label></div><label>Email<input name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label></div>
+          <div class="form-block"><p class="form-label">02 · ДОСТАВКА</p><div class="delivery-options"><label class="radio-card"><input type="radio" name="delivery" value="courier" checked><span><b>Курьер</b><small>1–3 часа · €7</small></span></label><label class="radio-card"><input type="radio" name="delivery" value="pickup"><span><b>Самовывоз</b><small>Сегодня · бесплатно</small></span></label></div><label>Адрес<input name="address" required placeholder="Улица, дом, квартира"></label></div>
+          <div class="form-block"><p class="form-label">03 · КОММЕНТАРИЙ</p><textarea name="comment" rows="3" placeholder="Например: оставить у двери"></textarea></div>
+          <button class="primary-button full" type="submit">Подтвердить заказ <span>↗</span></button>
+        </form>
+        <div class="checkout-summary"><p class="form-label">ВАШ ЗАКАЗ</p><div id="checkoutSummary"></div><div class="summary-total"><span>К оплате</span><strong id="checkoutTotal">€0</strong></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-modal modal-page" id="aboutModal" aria-hidden="true">
+    <div class="info-shell"><button class="close dark-close" data-close-modal="aboutModal">×</button><p class="eyebrow dark">FLEURÉ</p><h2>Мы любим<br><em>тихую</em> красоту.</h2><p>Небольшая студия авторских композиций. Мы работаем с сезонными цветами, спокойной палитрой и формами, которые не требуют объяснений.</p><button class="line-button" data-close-modal="aboutModal">Вернуться <span>↙</span></button></div>
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
