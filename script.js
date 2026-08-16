@@ -1,42 +1,32 @@
 const products=[
- {name:'Nocturne',tag:'глубокий',desc:'Пионы, розы, ранункулюсы',price:74,img:'assets/nocturne.jpg'},
- {name:'Éclat',tag:'светлый',desc:'Розы, анемоны, эвкалипт',price:68,img:'assets/eclat.jpg'},
- {name:'Azure',tag:'холодный',desc:'Дельфиниум, белые розы, маттиола',price:72,img:'assets/azure.jpg'},
- {name:'Rosée',tag:'нежный',desc:'Садовые розы, ранункулюсы, астильба',price:65,img:'assets/rosee.jpg'},
- {name:'Soleil',tag:'солнечный',desc:'Георгины, ромашки, жёлтые розы',price:59,img:'assets/soleil.jpg'},
- {name:'Velours',tag:'бархатный',desc:'Бордовые розы, пионы, скабиоза',price:82,img:'assets/velours.jpg'},
- {name:'Lilas',tag:'дымчатый',desc:'Сирень, дельфиниум, розы',price:69,img:'assets/lilas.jpg'},
- {name:'Jardin',tag:'садовый',desc:'Сезонные садовые цветы',price:76,img:'assets/jardin.jpg'}
-];
+["Nocturne","Пионы, розы, ранункулюсы",74,"bouquet-1.jpg"],
+["Éclat","Розы, анемоны, эвкалипт",68,"bouquet-2.jpg"],
+["Azure","Дельфиниум, белые розы, маттиола",72,"bouquet-3.jpg"],
+["Rosée","Садовые розы, ранункулюсы, астильба",65,"bouquet-4.jpg"],
+["Soleil","Герберы, ромашки, жёлтые розы",59,"bouquet-5.jpg"],
+["Velours","Бордовые розы, пионы, скабиоза",82,"bouquet-6.jpg"],
+["Lilas","Сирень, дельфиниум, розы",69,"bouquet-7.jpg"],
+["Jardin","Сезонные садовые цветы",76,"bouquet-8.jpg"]];
 
-const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
-const productsEl=$('#products'),cart=$('#cart'),overlay=$('#overlay'),cartItems=$('#cartItems'),cartTotal=$('#cartTotal'),cartCount=$('#cartCount'),toast=$('#toast');
+const $=s=>document.querySelector(s), productsEl=$("#products"), drawer=$("#drawer"), backdrop=$("#backdrop");
 let basket=[];
 
-productsEl.innerHTML=products.map((p,i)=>`<article class="product-card reveal" style="transition-delay:${Math.min(i*45,260)}ms"><div class="product-image"><img src="${p.img}" alt="Букет ${p.name}" loading="lazy"></div><div class="product-info"><div class="product-top"><div class="product-name">${p.name}</div><div class="product-tag">${p.tag}</div></div><div class="product-desc">${p.desc}</div><div class="product-row"><span class="price">€${p.price}</span><button class="add" data-add="${i}" aria-label="Добавить ${p.name}">+</button></div></div></article>`).join('');
+productsEl.innerHTML=products.map((p,i)=>`<article class="product reveal"><div class="product-img"><img loading="lazy" src="assets/${p[3]}" alt="${p[0]}"></div><div class="product-body"><div class="product-name">${p[0]}</div><div class="product-desc">${p[1]}</div><div class="product-row"><span class="price">€${p[2]}</span><button class="add" data-i="${i}" aria-label="Добавить ${p[0]}">+</button></div></div></article>`).join("");
 
-productsEl.addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(b)addToCart(+b.dataset.add)});
-function addToCart(index){const item=basket.find(x=>x.index===index);if(item)item.qty++;else basket.push({index,qty:1});renderCart();openCart();showToast(`${products[index].name} добавлен в корзину`)}
-function changeQty(index,delta){const item=basket.find(x=>x.index===index);if(!item)return;item.qty+=delta;if(item.qty<=0)basket=basket.filter(x=>x.index!==index);renderCart()}
-function removeItem(index){basket=basket.filter(x=>x.index!==index);renderCart()}
-function totals(){return{count:basket.reduce((s,x)=>s+x.qty,0),sum:basket.reduce((s,x)=>s+products[x.index].price*x.qty,0)}}
-function renderCart(){cartItems.innerHTML=basket.length?basket.map(x=>{const p=products[x.index];return `<div class="cart-item"><img src="${p.img}" alt=""><div><div class="cart-item-name">${p.name}</div><div class="cart-item-price">€${p.price}</div><div class="qty"><button data-minus="${x.index}">−</button><span>${x.qty}</span><button data-plus="${x.index}">+</button></div></div><button class="remove" data-remove="${x.index}" aria-label="Удалить">×</button></div>`}).join(''):`<div class="cart-empty">В корзине пока ничего нет.<br><br>Выберите композицию из коллекции.</div>`;const t=totals();cartCount.textContent=t.count;cartTotal.textContent=`€${t.sum}`;renderCheckoutSummary()}
-cartItems.addEventListener('click',e=>{const b=e.target;if(b.dataset.plus!==undefined)changeQty(+b.dataset.plus,1);if(b.dataset.minus!==undefined)changeQty(+b.dataset.minus,-1);if(b.dataset.remove!==undefined)removeItem(+b.dataset.remove)});
-function openCart(){cart.classList.add('open');overlay.classList.add('active');document.body.classList.add('lock')}
-function closeCart(){cart.classList.remove('open');overlay.classList.remove('active');document.body.classList.remove('lock')}
-$('#cartOpen').addEventListener('click',openCart);$('#cartClose').addEventListener('click',closeCart);overlay.addEventListener('click',closeCart);
-$('#menuButton').addEventListener('click',()=>$('#nav').classList.toggle('open'));$$('.nav a').forEach(a=>a.addEventListener('click',()=>$('#nav').classList.remove('open')));
-
-function openPage(id){closeCart();const el=$('#'+id);el.classList.add('open');el.setAttribute('aria-hidden','false');document.body.classList.add('lock')}
-function closePage(id){const el=$('#'+id);el.classList.remove('open');el.setAttribute('aria-hidden','true');document.body.classList.remove('lock')}
-$('#checkoutOpen').addEventListener('click',()=>{if(!basket.length){showToast('Сначала добавьте букет');return}openPage('checkoutPage')});
-$('#checkoutClose').addEventListener('click',()=>closePage('checkoutPage'));
-$$('[data-open]').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.open)));
-$$('[data-close-modal]').forEach(b=>b.addEventListener('click',()=>closePage(b.dataset.closeModal)));
-$('#checkoutForm').addEventListener('submit',e=>{e.preventDefault();const data=new FormData(e.currentTarget);const method=data.get('delivery')==='courier'?'курьерская доставка':'самовывоз';showToast(`Заказ принят · ${method}`);basket=[];renderCart();e.currentTarget.reset();setTimeout(()=>closePage('checkoutPage'),500)});
-function renderCheckoutSummary(){const el=$('#checkoutSummary');if(!basket.length){el.innerHTML='<p style="font-size:11px;color:#80686b">Корзина пуста.</p>';$('#checkoutTotal').textContent='€0';return}el.innerHTML=basket.map(x=>{const p=products[x.index];return `<div class="summary-item"><span>${p.name} × ${x.qty}</span><strong>€${p.price*x.qty}</strong></div>`}).join('');const t=totals();$('#checkoutTotal').textContent=`€${t.sum+7}`}
-function showToast(text){toast.textContent=text;toast.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>toast.classList.remove('show'),1900)}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closePage('checkoutPage');closePage('aboutModal')}});
-
-const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}}),{threshold:.12,rootMargin:'0px 0px -40px'});$$('.reveal').forEach(el=>observer.observe(el));
-renderCart();
+productsEl.addEventListener("click",e=>{const b=e.target.closest(".add");if(!b)return;add(+b.dataset.i)});
+function add(i){const x=basket.find(v=>v.i===i);x?x.q++:basket.push({i,q:1});render();openDrawer();toast(`${products[i][0]} добавлен в корзину`)}
+function render(){let count=basket.reduce((s,x)=>s+x.q,0), total=basket.reduce((s,x)=>s+products[x.i][2]*x.q,0);$("#count").textContent=count;$("#total").textContent=`€${total}`;$("#cartList").innerHTML=basket.length?basket.map(x=>{const p=products[x.i];return `<div class="cart-item"><img src="assets/${p[3]}" alt=""><div><strong>${p[0]}</strong><small>€${p[2]}</small><div class="qty"><button data-i="${x.i}" data-d="-1">−</button>${x.q}<button data-i="${x.i}" data-d="1">+</button></div></div><button class="remove" data-r="${x.i}">×</button></div>`}).join(""):`<p style="font-size:12px;color:#80666a">В корзине пока пусто.</p>`}
+$("#cartList").addEventListener("click",e=>{const q=e.target.closest("[data-d]"),r=e.target.closest("[data-r]");if(q){const x=basket.find(v=>v.i===+q.dataset.i);x.q+=+q.dataset.d;if(x.q<=0)basket=basket.filter(v=>v!==x);render()}if(r){basket=basket.filter(v=>v.i!==+r.dataset.r);render()}});
+function openDrawer(){drawer.classList.add("on");backdrop.classList.add("on");document.body.classList.add("lock")}
+function closeDrawer(){drawer.classList.remove("on");backdrop.classList.remove("on");document.body.classList.remove("lock")}
+$("#openCart").onclick=openDrawer;$("#closeCart").onclick=closeDrawer;backdrop.onclick=closeDrawer;
+$("#checkout").onclick=()=>{if(!basket.length)return toast("Сначала добавьте букет");$("#checkoutModal").classList.add("on");closeDrawer()};
+$("#closeCheckout").onclick=()=>$("#checkoutModal").classList.remove("on");
+$("#orderForm").onsubmit=e=>{e.preventDefault();$("#checkoutModal").classList.remove("on");basket=[];render();toast("Заказ принят · демонстрационная версия")};
+$("#deliveryBtn").onclick=()=>toast("Доставка по городу и за его пределы · от €8");
+$("#menu").onclick=()=>$("#nav").classList.toggle("mobile");
+document.querySelectorAll("#nav a").forEach(a=>a.onclick=()=>$("#nav").classList.remove("mobile"));
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeDrawer();$("#checkoutModal").classList.remove("on");$("#nav").classList.remove("mobile")}});
+let t;function toast(s){$("#toast").textContent=s;$("#toast").classList.add("on");clearTimeout(t);t=setTimeout(()=>$("#toast").classList.remove("on"),1800)}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(x=>io.observe(x));render();
